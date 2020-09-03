@@ -1,0 +1,15 @@
+<!--boton de ocultar la lista-->
+<div style="margin: 50px;">
+    <button class="btn btn-primary " (click)="visibilidad()">{{habilitar == true?'Ocultar':'Mostrar'}}</button>
+    <div class="card">
+        <div class="card-header">
+            Listado de cursos
+        </div>
+        <!--Se utiliza directicva *ngIf-->
+        <ul class="list-group" *ngIf="habilitar==true">
+            <!--Se utiliza directiva +ngFor-->
+            <li class="list-group-item" *ngFor="let curso of listaCursos">{{ curso }}</li>
+        </ul>
+    </div>
+</div>
+

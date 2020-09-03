@@ -1,0 +1,8 @@
+.footer{
+    position: absolute;
+    /*Para dejarlo al fondo*/
+    bottom: 0px;
+    /*altura*/
+    height: 60px;
+    width: 100%;
+}

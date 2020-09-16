@@ -24,12 +24,21 @@ public class Usuario implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
 	@Column(unique = true, length = 20)
 	private String username;
+	
 	@Column(length = 60)
 	private String password;
 	
-	private Boolean enable;
+	private Boolean enabled;
+	
+	private String nombre;
+	
+	private String apellido;
+	
+	@Column(unique=true)
+	private String email;
 	
 	//Se le añade el cascade para que se elimine en cascda cuando sea eliminada la entidad
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -64,12 +73,12 @@ public class Usuario implements Serializable{
 		this.password = password;
 	}
 
-	public Boolean getEnable() {
-		return enable;
+	public Boolean getEnabled() {
+		return enabled;
 	}
 
-	public void setEnable(Boolean enable) {
-		this.enable = enable;
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
 	}
 
 	public List<Role> getRoles() {
@@ -78,5 +87,34 @@ public class Usuario implements Serializable{
 
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getApellido() {
+		return apellido;
+	}
+
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}	
+	
 }

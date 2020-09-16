@@ -30,7 +30,7 @@ import { ClienteService } from './clientes/cliente.service';
 
 
 // importa el registerLocalData para localidad config
-import { registerLocaleData } from '@Angular/common';
+import { registerLocaleData } from '@angular/common';
 //Import locale
 import localeES from '@angular/common/locales/es-AR';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';

@@ -19,7 +19,7 @@ import com.eareiza.springAngular.model.entity.Usuario;
 import com.eareiza.springAngular.model.repository.IUsuarioRepository;
 
 @Service
-public class UsuariosService implements UserDetailsService{
+public class UsuariosService implements IUsuariosService,UserDetailsService{			//Se implementa UserDetailsService de springSecurity
 	
 	@Autowired
 	private IUsuarioRepository usuarioRepo;
@@ -29,6 +29,7 @@ public class UsuariosService implements UserDetailsService{
 	@Override
 	@Transactional(readOnly = true)
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		
 		Usuario usuario = usuarioRepo.findByUsername(username);
 		
 		if(usuario == null) {
@@ -43,7 +44,12 @@ public class UsuariosService implements UserDetailsService{
 				.peek(authority -> logger.info("Role: "+authority.getAuthority()))
 				.collect(Collectors.toList());
 		
-		return new User(usuario.getUsername(), usuario.getPassword(), usuario.getEnable(), true, true, true, authorities);
+		return new User(usuario.getUsername(), usuario.getPassword(), usuario.getEnabled(), true, true, true, authorities);
+	}
+
+	@Override
+	public Usuario findByUsername(String username) {
+		return usuarioRepo.findByUsername(username);
 	}
 
 }

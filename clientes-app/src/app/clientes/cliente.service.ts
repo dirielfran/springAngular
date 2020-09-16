@@ -16,7 +16,7 @@ import Swal from 'sweetalert2';
 //Se importa objeto Route para redirijir a un enlace
 import { Router } from '@angular/router';
 //Librerias para el formato de fechas
-import { formatDate,DatePipe } from '@Angular/common';
+import { formatDate,DatePipe } from '@angular/common';
 import {Region} from './region';
 
 

@@ -5,8 +5,8 @@
     aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
       <li class="nav-item">
         <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
       </li>
@@ -16,17 +16,20 @@
       </li>
       <!-- Se agrega link a clientes -->
       <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" routerLink="./clientes">Clientes</a>
+        <a class="nav-link" [routerLink]="['/clientes']">Clientes</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Features</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Pricing</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+    </ul>
+    <ul class="navbar-nav ml-auto">
+      <li *ngIf="!authService.isAuthenticated()"><a [routerLink]="['/login']" class="btn btn-outline-primary" >Sing-In</a></li>
+      <li *ngIf="authService.isAuthenticated()" class="dropdown">
+        <a href="#" class="btn btn-outline-primary dropdown-toggle"  id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{authService.usuario.username}}
+        </a>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <button (click)="logout()" class="dropdown-item" type="submit">Sing Out</button>
+        </div>
       </li>
     </ul>
   </div>
 </nav>
+

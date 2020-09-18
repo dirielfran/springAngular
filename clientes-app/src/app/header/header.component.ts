@@ -1,5 +1,8 @@
 //Se importa el Component para poderlo utilizar como decorador
 import { Component } from '@angular/core';
+import { AuthService } from '../usuarios/auth.service';
+import { Router } from '@angular/router';
+import swal from 'sweetalert2';
 //Se crea decorator
 @Component({
     //Se agrega el selector
@@ -10,5 +13,15 @@ import { Component } from '@angular/core';
 //Se exporta laa clase que sera importada en el module
 export class HeaderComponent{
     title:string ='App Spring - Angular';
-    yala:string = 'Yalita la hermosa';
+
+    constructor(public authService:AuthService, private router: Router){
+
+    }
+
+    logout():void{
+      swal.fire('Logout', `El usuario ${this.authService.usuario.username}, ha cerrado sesion con exito`, 'success');
+      this.authService.logout();
+      this.router.navigate(['/login']);
+    }
+
 }

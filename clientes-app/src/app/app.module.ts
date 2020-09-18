@@ -35,6 +35,7 @@ import { registerLocaleData } from '@angular/common';
 import localeES from '@angular/common/locales/es-AR';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DetalleComponent } from './clientes/detalle/detalle.component';
+import { LoginComponent } from './usuarios/login.component';
 
 //Se registra el locale
 registerLocaleData(localeES, 'es');
@@ -54,6 +55,7 @@ const routes: Routes =[
   {path: 'clientes/form/:id', component: FormComponent},
   //ruta para el upload de la imagen
   //{path: 'clientes/ver/:id', component: DetalleComponent}
+  {path: 'login', component: LoginComponent}
 ]
 @NgModule({
   declarations: [
@@ -66,7 +68,8 @@ const routes: Routes =[
     ClientesComponent,
     FormComponent,
     PaginatorComponent,
-    DetalleComponent
+    DetalleComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

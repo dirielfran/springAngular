@@ -17,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -57,6 +58,8 @@ public class ClienteRestController {
 	}
 	
 	////////////////////////////////////////Se recupera cliente por id
+	//Se le añade seguridad a los endpoint por url
+	@Secured({"ROLE_ADMIN", "ROLE_USER"})
 	@GetMapping("/clientes/{id}")
 	//Manejo de codigo de respuesta
 	//@ResponseStatus(HttpStatus.OK)
@@ -88,6 +91,8 @@ public class ClienteRestController {
 	
 	
 	//////////////////////////////////////Se crea Cliente
+	//Se le añade seguridad a los endpoint por url
+	@Secured("ROLE_ADMIN")
 	@PostMapping("/clientes")
 	//Manejo de codigo de respuesta
 //	@ResponseStatus(HttpStatus.CREATED)
@@ -139,6 +144,8 @@ public class ClienteRestController {
 	}
 	
 	///////////////////////////////////////////////////Update de Cliente 
+	//Se le añade seguridad a los endpoint por url
+	@Secured("ROLE_ADMIN")
 	@PutMapping("/clientes/{id}")
 	//CREATED CODIGO 201
 //	@ResponseStatus(HttpStatus.CREATED)
@@ -191,6 +198,8 @@ public class ClienteRestController {
 	
 	
 	///////////////////////////////////////////////////delete de Cliente 
+	//Se le añade seguridad a los endpoint por url
+	@Secured("ROLE_ADMIN")
 	@DeleteMapping("/clientes/{id}")
 	//NO_CONTENT CODIGO 204
 //	@ResponseStatus(HttpStatus.NO_CONTENT)
@@ -217,12 +226,15 @@ public class ClienteRestController {
 	}
 	
 	//Metodo que obtiene el file del cliente
+	//Se le añade seguridad a los endpoint por url
+	@Secured({"ROLE_ADMIN", "ROLE_USER"})
 	@PostMapping("/clientes/upload")
 	private ResponseEntity<?> uploadArchivo(@RequestParam("archivo") MultipartFile archivo, @RequestParam("id") Integer idCliente){
 		Map<String, Object> response = new HashMap<>();
-		Cliente cliente = clienteServ.findById(idCliente);
+		
 		//Se valida si el archivo esta vacio
 		if(!archivo.isEmpty()) {
+			Cliente cliente = clienteServ.findById(idCliente);
 			String nombreArchivo=null;
 			try {			
 				nombreArchivo = uploadService.copiar(archivo);
@@ -263,6 +275,8 @@ public class ClienteRestController {
 		return new ResponseEntity<Resource>(recurso,cabecera, HttpStatus.OK);
 	}
 	
+	//Se le añade seguridad a los endpoint por url
+	@Secured("ROLE_ADMIN")
 	@GetMapping("/clientes/regiones")
 	public List<Region> listaRegiones(){
 		return clienteServ.findAllRegiones();

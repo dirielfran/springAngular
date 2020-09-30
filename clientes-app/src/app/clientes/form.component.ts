@@ -36,6 +36,7 @@ export class FormComponent implements OnInit {
   cargarRegiones(): void{
     this.clienteService.getRegiones().subscribe(regiones => this.regiones = regiones)
   }
+
   //Se crea metodo que llama al metodo de la clase de servicio para obtener cliente por id
   cargarCliente(): void{
     //Obtine los parametros del formulario

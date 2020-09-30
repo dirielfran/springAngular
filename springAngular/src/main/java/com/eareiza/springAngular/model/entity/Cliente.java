@@ -1,10 +1,14 @@
 package com.eareiza.springAngular.model.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -19,6 +23,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
@@ -65,12 +70,27 @@ public class Cliente implements Serializable{
 	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private Region region;
 	
+	//Se crea relacion con la clase Factura
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties({"clientes", "hibernateLazyInitializer", "handler"})
+	private List<Factura> facturas;	
+	
 	//@PrePersist
 	//Antes de crear la entidad le asigna una fecha 
 //	public void prePersist() {
 //		fecha = new Date();
 //	}
 	
+	public Cliente() {
+		this.facturas = new ArrayList<>();
+	}
+	
+	public List<Factura> getFacturas() {
+		return facturas;
+	}
+	public void setFacturas(List<Factura> facturas) {
+		this.facturas = facturas;
+	}
 	public String getFoto() {
 		return foto;
 	}

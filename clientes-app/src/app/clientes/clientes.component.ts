@@ -9,7 +9,7 @@ import Swal from 'sweetalert2'
 import { createOfflineCompileUrlResolver } from '@angular/compiler';
 import { tap } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
-
+import { AuthService } from '../usuarios/auth.service';
 
 @Component({
   selector: 'app-clientes',
@@ -27,7 +27,8 @@ export class ClientesComponent implements OnInit {
   //Se crea variable en el const. y se le inyecta la clase de servicio
   constructor(private clienteService: ClienteService,
               private activatedRoute: ActivatedRoute,
-              private modalService: ModalService) { }
+              private modalService: ModalService,
+              public authService: AuthService) { }
 
   //Se crea cuando se inicia el componente
   ngOnInit() {
@@ -43,7 +44,6 @@ export class ClientesComponent implements OnInit {
         //ae añade pipe, para añadir operadores
         this.clienteService.getClientes(page).pipe(
           tap(response =>{
-              console.log('cliente.component: tap 3');
               (response.content as Cliente[]).forEach(element => console.log(element.nombre))
           })
         ).subscribe(

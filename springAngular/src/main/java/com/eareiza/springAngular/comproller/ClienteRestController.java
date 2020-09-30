@@ -59,7 +59,7 @@ public class ClienteRestController {
 	
 	////////////////////////////////////////Se recupera cliente por id
 	//Se le añade seguridad a los endpoint por url
-	@Secured({"ROLE_ADMIN", "ROLE_USER"})
+	//@Secured({"ROLE_ADMIN"})
 	@GetMapping("/clientes/{id}")
 	//Manejo de codigo de respuesta
 	//@ResponseStatus(HttpStatus.OK)
@@ -229,7 +229,7 @@ public class ClienteRestController {
 	//Se le añade seguridad a los endpoint por url
 	@Secured({"ROLE_ADMIN", "ROLE_USER"})
 	@PostMapping("/clientes/upload")
-	private ResponseEntity<?> uploadArchivo(@RequestParam("archivo") MultipartFile archivo, @RequestParam("id") Integer idCliente){
+	public ResponseEntity<?> uploadArchivo(@RequestParam("archivo") MultipartFile archivo, @RequestParam("id") Integer idCliente){
 		Map<String, Object> response = new HashMap<>();
 		
 		//Se valida si el archivo esta vacio

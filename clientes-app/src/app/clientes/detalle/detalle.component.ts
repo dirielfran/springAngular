@@ -4,6 +4,11 @@ import {ClienteService} from '../cliente.service';
 import swal from 'sweetalert2';
 import {HttpEventType} from '@angular/common/http';
 import {ModalService} from './modal.service';
+import {AuthService} from '../../usuarios/auth.service';
+import { FacturasService } from '../../facturas/services/facturas.service';
+import { Factura } from '../../facturas/models/factura';
+
+
 
 @Component({
   selector: 'detalle-cliente',
@@ -18,7 +23,9 @@ export class DetalleComponent implements OnInit {
 
 
   constructor(private clienteService: ClienteService,
-                  public modalService: ModalService) { }
+                  private facturaService: FacturasService,
+                  public modalService: ModalService,
+                  public authService: AuthService) { }
 
   ngOnInit(): void {
     /* this.activatedRoute.paramMap.subscribe(params =>{
@@ -71,5 +78,47 @@ export class DetalleComponent implements OnInit {
     this.modalService.cerrarModal();
     this.fotoSeleccionada = null;
     this.progreso = 0;
+  }
+
+  deleteFactura(factura:Factura): void{
+    const swalWithBootstrapButtons = swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger'
+      },
+      buttonsStyling: false
+    })
+
+    swalWithBootstrapButtons.fire({
+      title: 'Esta usted seguro?',
+      text: `Desea eliminar la factura ${factura.descripcion}?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Si, eliminar!',
+      cancelButtonText: 'No, cancelar!',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.value) {
+        this.facturaService.deleteFactura(factura.id).subscribe(
+          response => {
+            this.cliente.facturas = this.cliente.facturas.filter(f => f !== factura)
+            swalWithBootstrapButtons.fire(
+              'Factura Eliminada!',
+              `Factura ${factura.descripcion} eliminada con exito.`,
+              'success'
+            )
+          }
+        )
+      } else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === swal.DismissReason.cancel
+      ) {
+        swalWithBootstrapButtons .fire(
+          'Cancelado',
+          'La opcion de eliminar ha sido cancelada.',
+          'error'
+        )
+      }
+    })
   }
 }

@@ -5,7 +5,7 @@
         <h3 class="card-title">Listado Clientes</h3>
         <div class="my-2 text-left">
             <!--[routerLink] Nos permite crear rutas nternas del proyecto-->
-            <button class="btn btn-rounded btn-primary" type="buttom" [routerLink]="['/clientes/form']">Crear Cliente</button>
+            <button *ngIf="authService.hasRole('ROLE_ADMIN')" class="btn btn-rounded btn-primary" type="buttom" [routerLink]="['/clientes/form']">Crear Cliente</button>
         </div>
         <!-- Se crea div informativo en caso de no haber clientes en la lista -->
         <div class="alert alert-info" *ngIf="clientes?.length == 0">
@@ -16,19 +16,19 @@
             <table class="table table-striped"  *ngIf="clientes?.length>0">
                 <thead>
                     <tr>
-                        <th>Img</th>
+                        <th >Img</th>
                         <th>Nombre</th>
                         <th>Apellido</th>
                         <th>fecha</th>
                         <th>Email</th>
-                        <th>Editar</th>
-                        <th>Eliminar</th>
+                        <th *ngIf="authService.hasRole('ROLE_ADMIN')">Editar</th>
+                        <th *ngIf="authService.hasRole('ROLE_ADMIN')">Eliminar</th>
                     </tr>
                 </thead>
                 <tbody>
                     <!--Se añade condicional *ngFor-->
                     <tr *ngFor="let cliente of clientes">
-                        <td><img *ngIf="cliente?.foto" (click)="abrirModal(cliente)"
+                        <td ><img *ngIf="cliente?.foto" (click)="abrirModal(cliente)"
                           src="http://localhost:8080/api/uploads/img/{{cliente.foto}}" alt="{{cliente.foto}}"
                           class="img-thumbnail rounded" style="width: 64px; cursor: pointer;">
                           <img *ngIf="!cliente?.foto" (click)="abrirModal(cliente)"
@@ -39,10 +39,10 @@
                         <td>{{cliente.apellido}}</td>
                         <td>{{cliente.fecha | date:'EEEE dd, MMMM yyyy'}}</td>
                         <td>{{cliente.email}}</td>
-                        <td>
+                        <td *ngIf="authService.hasRole('ROLE_ADMIN')">
                             <button class="btn btn-primary btn-sm" type="button" name="editar" [routerLink]="['/clientes/form', cliente.id]">Editar</button>
                         </td>
-                        <td>
+                        <td *ngIf="authService.hasRole('ROLE_ADMIN')">
                             <button class="btn btn-danger btn-sm" type="button" name="eliminar" (click)="delete(cliente)">Eliminar</button>
                         </td>
                     </tr>

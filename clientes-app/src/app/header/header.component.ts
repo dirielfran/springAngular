@@ -13,11 +13,18 @@ import swal from 'sweetalert2';
 //Se exporta laa clase que sera importada en el module
 export class HeaderComponent{
     title:string ='App Spring - Angular';
+    authenticacion: boolean;
 
     constructor(public authService:AuthService, private router: Router){
 
     }
 
+
+    ngAfterViewInit() {
+      setTimeout(() => {
+          this.authenticacion = this.authService.isAuthenticated();
+      });
+  }
     logout():void{
       swal.fire('Logout', `El usuario ${this.authService.usuario.username}, ha cerrado sesion con exito`, 'success');
       this.authService.logout();

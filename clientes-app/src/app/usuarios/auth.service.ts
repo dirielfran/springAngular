@@ -86,6 +86,14 @@ export class AuthService {
     return false;
   }
 
+  //Metodo que permite validar si el usuario posee un rol determinado
+  hasRole(role:string):boolean{
+    if(this.usuario.roles.includes(role)){
+      return true;
+    }
+    return false;
+  }
+
   logout():void{
     this._usuario = null;
     this._token = null;

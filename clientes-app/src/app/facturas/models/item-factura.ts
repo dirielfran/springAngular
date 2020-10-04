@@ -6,6 +6,6 @@ export class ItemFactura {
   importe: number;
 
   public getTotal():number{
-    return this.cantidad+this.producto.precio;
+    return this.cantidad * this.producto.precio;
   }
 }

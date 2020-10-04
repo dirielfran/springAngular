@@ -21,6 +21,4 @@ public interface IProductoRepository extends JpaRepository<Producto, Long> {
 	
 	//Con QueryMethod, busca donde nombre comience con el parametro y se ignore si es may. o min.
 	public List<Producto> findByNombreStartingWithIgnoreCase(String nombre);
-	
-	
 }

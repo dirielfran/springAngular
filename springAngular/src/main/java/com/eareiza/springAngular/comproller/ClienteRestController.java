@@ -37,6 +37,7 @@ import com.eareiza.springAngular.model.service.IUploadFileService;
 
 @RestController
 @RequestMapping("/api")
+
 //Se configuran los dominios permitidos, soporta una lista d dominios
 //Se pueden especificar los metodos permitidos, las cabeceras
 @CrossOrigin(origins= {"http://localhost:4200"})

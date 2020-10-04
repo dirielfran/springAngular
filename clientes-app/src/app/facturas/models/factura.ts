@@ -11,4 +11,12 @@ export class Factura {
   total: number;
   createAt: string;
 
+  getTotalFactura(): number{
+    this.total = 0;
+    this.items.forEach((item:ItemFactura)=>{
+      this.total += item.getTotal();
+    });
+    return this.total;
+  }
+
 }

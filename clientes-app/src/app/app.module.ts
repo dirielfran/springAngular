@@ -6,11 +6,14 @@ import { RouterModule, Routes } from '@angular/router';
 /*agrega el modulo HttpClient, que es el mecanismo que tiene
 	angular para la comunicacion con el servidor remoto, atraves de peticiones http con dif verbos get, post, put o delete (CRUD)*/
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 //DatePicker
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
-
+//Autocomplete de angular material
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 
 import { AppComponent } from './app.component';
@@ -25,7 +28,7 @@ import { PaginatorComponent } from './paginator/paginator.component';
 import { DetalleComponent } from './clientes/detalle/detalle.component';
 import { LoginComponent } from './usuarios/login.component';
 import { DetalleFacturaComponent } from './facturas/detalle-factura.component';
-
+import { FacturasComponent } from './facturas/facturas.component';
 
 //Se importa la clase de servicio
 import { ClienteService } from './clientes/cliente.service';
@@ -40,6 +43,8 @@ import { AuthGuard } from './usuarios/guards/auth.guard';
 import { RoleGuard } from './usuarios/guards/role.guard';
 import { TokenInterceptor } from './usuarios/interceptors/token.interceptor';
 import { AuthInterceptor } from './usuarios/interceptors/auth.interceptor';
+
+
 
 //Se registra el locale
 registerLocaleData(localeES, 'es');
@@ -60,7 +65,8 @@ const routes: Routes =[
   //ruta para el upload de la imagen
   //{path: 'clientes/ver/:id', component: DetalleComponent}
   {path: 'login', component: LoginComponent},
-  {path: 'facturas/:id', component: DetalleFacturaComponent}
+  {path: 'facturas/:id', component: DetalleFacturaComponent},
+  {path: 'facturas/form/:clienteId', component: FacturasComponent}
 ];
 @NgModule({
   declarations: [
@@ -75,7 +81,8 @@ const routes: Routes =[
     PaginatorComponent,
     DetalleComponent,
     LoginComponent,
-    DetalleFacturaComponent
+    DetalleFacturaComponent,
+    FacturasComponent
   ],
   imports: [
     BrowserModule,
@@ -86,7 +93,9 @@ const routes: Routes =[
     RouterModule.forRoot(routes),
     BrowserAnimationsModule,
     MatDatepickerModule,
-    MatMomentDateModule
+    MatMomentDateModule,
+    //autocomplete angular material
+    ReactiveFormsModule, MatAutocompleteModule, MatInputModule, MatFormFieldModule
   ],
    //Se agrega al modulo la clase de servicio
    // Se agrega confg de LOCALE_ID

@@ -37,10 +37,9 @@ import com.eareiza.springAngular.model.service.IUploadFileService;
 
 @RestController
 @RequestMapping("/api")
-
 //Se configuran los dominios permitidos, soporta una lista d dominios
 //Se pueden especificar los metodos permitidos, las cabeceras
-@CrossOrigin(origins= {"http://localhost:4200"})
+@CrossOrigin(origins= {"http://localhost:4200","*"})
 public class ClienteRestController {
 	@Autowired 
 	private IClienteService clienteServ;
@@ -60,7 +59,7 @@ public class ClienteRestController {
 	
 	////////////////////////////////////////Se recupera cliente por id
 	//Se le añade seguridad a los endpoint por url
-	//@Secured({"ROLE_ADMIN"})
+	@Secured({"ROLE_ADMIN", "ROLE_USER"})
 	@GetMapping("/clientes/{id}")
 	//Manejo de codigo de respuesta
 	//@ResponseStatus(HttpStatus.OK)

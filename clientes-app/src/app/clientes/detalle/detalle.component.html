@@ -35,12 +35,12 @@
                 </div>
               </div>
               <div class="col-sm">
-                <img *ngIf="cliente?.foto" src="http://localhost:8080/api/uploads/img/{{cliente.foto}}" alt="{{cliente.foto}}" class="img-thumbnail rounded">
+                <!-- <img *ngIf="cliente?.foto" src="http://localhost:8080/api/uploads/img/{{cliente.foto}}" alt="{{cliente.foto}}" class="img-thumbnail rounded">
+                 --><img *ngIf="cliente?.foto" src="http://66.228.61.76/springAngular/api/uploads/img/{{cliente.foto}}" alt="{{cliente.foto}}" class="img-thumbnail rounded">
               </div>
             </div>
-            <div class="row">
-              <td><button class="btn btn-success btn-sm" type="button" [routerLink]="['/facturas/form', cliente.id]">Crear Factura</button></td>
-
+            <div class="row" *ngIf="authService.hasRole('ROLE_ADMIN')">
+                <button class="btn btn-success btn-sm" type="button" [routerLink]="['/facturas/form', cliente.id]">Crear Factura</button>
             </div>
             <div class="row">
               <div class="alert alert-info my-4" *ngIf="cliente.facturas.length == 0">
@@ -54,7 +54,7 @@
                     <th>Fecha</th>
                     <th>total</th>
                     <th>detalle</th>
-                    <th>eliminar</th>
+                    <th *ngIf="authService.hasRole('ROLE_ADMIN')" >eliminar</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -64,7 +64,7 @@
                     <td>{{factura.createAt}}</td>
                     <td>{{factura.total}}</td>
                     <td><button class="btn btn-primary btn-sm" type="button" [routerLink]="['/facturas', factura.id]">Ver</button></td>
-                    <td><button class="btn btn-danger btn-sm" type="button" (click)="deleteFactura(factura)">eliminar</button></td>
+                    <td *ngIf="authService.hasRole('ROLE_ADMIN')"><button class="btn btn-danger btn-sm" type="button" (click)="deleteFactura(factura)">eliminar</button></td>
                   </tr>
                 </tbody>
               </table>

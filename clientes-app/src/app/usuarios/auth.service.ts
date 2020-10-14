@@ -40,7 +40,8 @@ export class AuthService {
   }
 
   login(usuario:Usuario):Observable<any>{
-    const urlEndPoint ='http://localhost:8080/oauth/token';
+    //const urlEndPoint ='http://localhost:8080/oauth/token';
+    const urlEndPoint ='http://66.228.61.76/springAngular/oauth/token';
     //credenciales de la aplicacion encriptada en base64 con la funcion btoa
     const credenciales = btoa('angularapp'+':'+'12345');
     //headers de la peticion

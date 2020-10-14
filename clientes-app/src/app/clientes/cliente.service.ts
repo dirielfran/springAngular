@@ -26,7 +26,9 @@ import { AuthService } from '../usuarios/auth.service';
 })
 export class ClienteService {
   //Se alamacena en variable el endPoint
-  private urlEndPoint: string ='http://localhost:8080/api/clientes';
+  //private urlEndPoint: string ='http://localhost:8080/api/clientes';
+  private urlEndPoint: string ='http://66.228.61.76/springAngular/api/clientes';
+
 
   //Se crea headers para el endpoint
   //private httpHeaders = new HttpHeaders ({'Content-type':'application/json'});

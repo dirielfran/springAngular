@@ -27,7 +27,7 @@ export class ClientesComponent implements OnInit {
   //Se crea variable en el const. y se le inyecta la clase de servicio
   constructor(private clienteService: ClienteService,
               private activatedRoute: ActivatedRoute,
-              private modalService: ModalService,
+              public modalService: ModalService,
               public authService: AuthService) { }
 
   //Se crea cuando se inicia el componente

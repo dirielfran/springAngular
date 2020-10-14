@@ -76,6 +76,8 @@ export class FormComponent implements OnInit {
 
   //Metodo que llama al metodo update de cliente.service
   update():void{
+
+    this.cliente.facturas = null;
     //Se llama a la clase de servici y se suscribe al metodo update
     this.clienteService.update(this.cliente).subscribe(
 
@@ -104,3 +106,5 @@ export class FormComponent implements OnInit {
   }
 
 }
+
+

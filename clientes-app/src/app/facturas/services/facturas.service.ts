@@ -8,8 +8,10 @@ import { Producto } from '../models/producto';
   providedIn: 'root'
 })
 export class FacturasService {
-  private urlEndPoint: string = 'http://localhost:8080/api/facturas';
+  //private urlEndPoint: string = 'http://localhost:8080/api/facturas';
+  private urlEndPoint: string = 'http://66.228.61.76/springAngular/api/facturas';
   constructor(private httpCliente: HttpClient) { }
+
 
   getFactura(id: number):Observable<Factura>{
     return  this.httpCliente.get<Factura>(`${this.urlEndPoint}/${id}`);

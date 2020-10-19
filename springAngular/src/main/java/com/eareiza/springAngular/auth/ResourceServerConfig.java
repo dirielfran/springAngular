@@ -25,6 +25,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter{
 	public void configure(HttpSecurity http) throws Exception {
 		//Se permite a todos el accesso por el metodo get a "/api/clientes"
 		http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/clientes", "/api/clientes/page/**", "/api/uploads/img/**", "/images/**").permitAll()
+		.antMatchers("/chat-webSocket/**").permitAll()
 //		.antMatchers("/api/clientes/{id}").permitAll()
 //		.antMatchers("/api/facturas/**").permitAll()
 		/*.antMatchers(HttpMethod.GET, "/api/clientes/{id}").hasAnyRole("USER","ADMIN")

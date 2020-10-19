@@ -1,0 +1,47 @@
+<div class="card mx-4 my-4">
+  <div class="card-header">
+    <ul class="nav nav-pills card-header-pills">
+      <li class="nav-item mr-2" *ngIf="!conectado">
+        <input type="text" class="form-control" [(ngModel)]="mensaje.username" placeholder="Tu username..." name="username">
+      </li>
+      <li class="nav-item mr-2">
+        <button class="btn btn-success" type="button" (click)="conectar()" *ngIf="!conectado" [disabled]="!mensaje.username">Conectar</button>
+      </li>
+      <li class="nav-item">
+        <button class="btn btn-warning" type="button" (click)="desconectar()" *ngIf="conectado">Cerrar Chat</button>
+      </li>
+    </ul>
+  </div>
+  <!-- el #scrollChat [scrollTop]="scrollChat.scrollHight" permite que el scroll este a la altura del ultimo mensaje -->
+  <div #scrollChat [scrollTop]="scrollChat.scrollHight" class="card-body" style="overflow-y: scroll; height: 360px;" *ngIf="conectado">
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item light" *ngFor="let mensaje of mensajes">
+        <span *ngIf="mensaje.tipo=='NUEVO_USUARIO'">
+          {{mensaje.fecha | date:'shortTime'}} @ {{mensaje.texto}} :
+          <span [ngStyle]="{'color': mensaje.color}">
+            {{mensaje.username}}
+          </span>
+        </span>
+        <span *ngIf="mensaje.tipo=='MENSAJE'">
+          {{mensaje.fecha | date:'shortTime'}}
+          <span [ngStyle]="{'color': mensaje.color}">
+            {{mensaje.username}}
+          </span>
+          dice: <br>{{mensaje.texto}}
+        </span>
+      </li>
+    </ul>
+  </div>
+
+  <div class="card-footer"*ngIf="conectado">
+    <form  class="form-inline">
+      <div class="form-group mx-3">
+        <!-- el evento keyup notifica cuando se esta escribiendo en el input -->
+        <input type="text" class="form-control" [(ngModel)]="mensaje.texto" placeholder="Esciba un mensaje" name="texto" (keyup)="escribiendoEvento()">
+      </div>
+      <button class="btn btn-primary" type="submit" (click)="enviarMensaje()">Enviar</button>
+      <!-- Muestra si algun usuario esta escribiendo -->
+      <div class="mx-3">{{escribiendo}}</div>
+    </form>
+  </div>
+</div>

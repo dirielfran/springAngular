@@ -29,6 +29,7 @@ import { DetalleComponent } from './clientes/detalle/detalle.component';
 import { LoginComponent } from './usuarios/login.component';
 import { DetalleFacturaComponent } from './facturas/detalle-factura.component';
 import { FacturasComponent } from './facturas/facturas.component';
+import { ChatComponent } from './chat/chat.component';
 
 //Se importa la clase de servicio
 import { ClienteService } from './clientes/cliente.service';
@@ -52,7 +53,7 @@ registerLocaleData(localeES, 'es');
 //Se crea constante qu e contiene arreglo con las rutas
 //Se definen todas las rutas de la aplicacion
 const routes: Routes =[
-  //pagina principal
+  //ruta por defecto de la aplicacion
   {path: '', redirectTo: '/clientes', pathMatch: 'full'},
   {path: 'directivas', component: DirectivasComponent},
   {path: 'clientes', component: ClientesComponent},
@@ -66,7 +67,9 @@ const routes: Routes =[
   //{path: 'clientes/ver/:id', component: DetalleComponent}
   {path: 'login', component: LoginComponent},
   {path: 'facturas/:id', component: DetalleFacturaComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'ROLE_USER'}},
-  {path: 'facturas/form/:clienteId', component: FacturasComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'}}
+  {path: 'facturas/form/:clienteId', component: FacturasComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'}},
+  //rutas para el chat
+  {path: 'chat', component: ChatComponent }
 ];
 @NgModule({
   declarations: [
@@ -82,7 +85,8 @@ const routes: Routes =[
     DetalleComponent,
     LoginComponent,
     DetalleFacturaComponent,
-    FacturasComponent
+    FacturasComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,
